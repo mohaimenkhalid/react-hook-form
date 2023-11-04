@@ -3,7 +3,13 @@ import {DevTool} from "@hookform/devtools"
 import "./App.css"
 
 export default function App() {
-    const form = useForm()
+    const form = useForm({
+        defaultValues: {
+            //you call api and set data default value
+            username: "khalid",
+            email: "khalid@gmail.com"
+        }
+    })
     const {register, control, handleSubmit, formState} = form
     const {errors} = formState;
     const onSubmit = (data) => {
@@ -38,7 +44,7 @@ export default function App() {
                                },
                                validate: {
                                    allowEmail: (fieldValue) => {
-                                       return !fieldValue.endsWith('gmail.com') || "Only allow gmail account"
+                                       return fieldValue.endsWith('gmail.com') || "Only allow gmail account"
                                    },
                                    blackListedEmail: (fieldValue) => {
                                        return fieldValue.contains('baddomain.com') || "This email is black listed"
