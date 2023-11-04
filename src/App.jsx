@@ -35,6 +35,14 @@ export default function App() {
                                pattern: {
                                    value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                                    message: "Invalid email address"
+                               },
+                               validate: {
+                                   allowEmail: (fieldValue) => {
+                                       return !fieldValue.endsWith('gmail.com') || "Only allow gmail account"
+                                   },
+                                   blackListedEmail: (fieldValue) => {
+                                       return fieldValue.contains('baddomain.com') || "This email is black listed"
+                                   }
                                }
                            })}
                     />
