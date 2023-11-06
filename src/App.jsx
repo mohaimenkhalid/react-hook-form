@@ -99,6 +99,7 @@ export default function App() {
                                    },
                                }
                            })}
+                        disabled={watch("username") === ""}
                     />
                     <small className="error">{errors.email?.message}</small>
                 </div>
