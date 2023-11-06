@@ -10,7 +10,9 @@ export default function App() {
             email: "khalid@gmail.com",
             social: {
                 facebook: ''
-            }
+            },
+            proneNumbers: ["", ""],
+            interests: []
         }
     })
     const {register, control, handleSubmit, formState} = form
@@ -64,6 +66,41 @@ export default function App() {
                         })}
                     />
                     <small className="error">{errors.social?.facebook?.message}</small>
+                </div>
+                <div>
+                    <label>Primary Phone: </label>
+                    <input
+                        type='text'
+                        placeholder="Enter Primary Phone"
+                        {...register("proneNumbers.0", {
+                            required: 'Primary phone is required'
+                        })}
+                    />
+                    <small className="error">{errors?.proneNumbers && errors.proneNumbers[0].message}</small>
+                </div>
+                <div>
+                    <label>Secondary Phone: </label>
+                    <input
+                        type='text'
+                        placeholder="Enter Secondary Phone"
+                        {...register("proneNumbers.1")}
+                    />
+                </div>
+
+                <div>
+                    <label>Facebook: </label>
+                    <select
+                        {...register("interests", {
+                            required: 'interests is required'
+                        })}
+                        multiple
+                    >
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="REACT">REACT</option>
+                        <option value="VUE">VUE</option>
+                    </select>
+                    <small className="error">{errors?.interests?.message}</small>
                 </div>
                 <button type="submit">Submit</button>
             </form>
