@@ -1,6 +1,7 @@
 import {useForm, useFieldArray} from 'react-hook-form'
 import {DevTool} from "@hookform/devtools"
 import "./App.css"
+import {useEffect} from "react";
 
 export default function App() {
     const form = useForm({
@@ -21,13 +22,20 @@ export default function App() {
             age: ''
         }
     })
-    const {register, control, handleSubmit, formState} = form
+    const {register, control, handleSubmit, formState, watch} = form
     const {errors} = formState;
 
     const {fields, append, remove} = useFieldArray({
         name: 'companies',
         control
     })
+
+    useEffect(() => {
+        const subscription = watch((value) => {
+            console.log(value)
+        })
+        return () => subscription.unsubscribe()
+    }, [watch]);
     const onSubmit = (data) => {
         console.log("submit", data)
     }
