@@ -22,7 +22,7 @@ export default function App() {
             age: ''
         }
     })
-    const {register, control, handleSubmit, formState, watch} = form
+    const {register, control, handleSubmit, formState, watch, getValues} = form
     const {errors} = formState;
 
     const {fields, append, remove} = useFieldArray({
@@ -38,6 +38,12 @@ export default function App() {
     }, [watch]);
     const onSubmit = (data) => {
         console.log("submit", data)
+    }
+
+    const handleGetValues = () => {
+        console.log("Get All Form Data", getValues())
+        console.log("Get UserName Form Data - ", getValues("username"))
+        console.log("Get UserName, Email Form Data - ", getValues(["username", "email"]))
     }
     return (
         <div className='App'>
@@ -167,6 +173,7 @@ export default function App() {
                 </div>
 
                 <button type="submit">Submit</button>
+                <button type="submit" onClick={handleGetValues}>Get Values</button>
             </form>
 
             <DevTool control={control}/>
