@@ -1,4 +1,4 @@
-import {useForm} from 'react-hook-form'
+import {useForm, useFieldArray} from 'react-hook-form'
 import {DevTool} from "@hookform/devtools"
 import "./App.css"
 
@@ -12,11 +12,21 @@ export default function App() {
                 facebook: ''
             },
             proneNumbers: ["", ""],
-            interests: []
+            interests: [],
+            companies: [
+                {
+                    name: ''
+                }
+            ]
         }
     })
     const {register, control, handleSubmit, formState} = form
     const {errors} = formState;
+
+    const {fields, append, remove} = useFieldArray({
+        name: 'companies',
+        control
+    })
     const onSubmit = (data) => {
         console.log("submit", data)
     }
@@ -88,7 +98,7 @@ export default function App() {
                 </div>
 
                 <div>
-                    <label>Facebook: </label>
+                    <label>Interests: </label>
                     <select
                         {...register("interests", {
                             required: 'interests is required'
@@ -102,6 +112,32 @@ export default function App() {
                     </select>
                     <small className="error">{errors?.interests?.message}</small>
                 </div>
+
+                {
+                    fields.map((field, index) => (
+                        <div
+                        key={index}
+                        >
+                            <label>Company -  {index+1}: </label>
+                            <input
+                                type='text'
+                                placeholder="Enter Name"
+                                {...register(`companies.${index}.name`, {
+                                    required: `Company ${index+1} is required`
+                                })}
+                            />
+                            {
+                                index === 0 && <button onClick={() => append({name: ''})}>+</button>
+                            }
+                            {
+                                index !== 0 && <button onClick={() => remove(index)}>-</button>
+                            }
+
+                            <small className="error">{errors?.companies && errors?.companies[index]?.name.message}</small>
+                        </div>
+                    ))
+                }
+
                 <button type="submit">Submit</button>
             </form>
 
