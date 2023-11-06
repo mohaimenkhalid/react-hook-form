@@ -7,7 +7,10 @@ export default function App() {
         defaultValues: {
             //you call api and set data default value
             username: "khalid",
-            email: "khalid@gmail.com"
+            email: "khalid@gmail.com",
+            social: {
+                facebook: ''
+            }
         }
     })
     const {register, control, handleSubmit, formState} = form
@@ -44,15 +47,23 @@ export default function App() {
                                },
                                validate: {
                                    allowEmail: (fieldValue) => {
-                                       return fieldValue.endsWith('gmail.com') || "Only allow gmail account"
+                                       return fieldValue?.endsWith('gmail.com') || "Only allow gmail account"
                                    },
-                                   blackListedEmail: (fieldValue) => {
-                                       return fieldValue.contains('baddomain.com') || "This email is black listed"
-                                   }
                                }
                            })}
                     />
                     <small className="error">{errors.email?.message}</small>
+                </div>
+                <div>
+                    <label>Facebook: </label>
+                    <input
+                        type='text'
+                        placeholder="Enter Facebook url"
+                        {...register("social.facebook", {
+                            required: 'facebook url is required'
+                        })}
+                    />
+                    <small className="error">{errors.social?.facebook?.message}</small>
                 </div>
                 <button type="submit">Submit</button>
             </form>
