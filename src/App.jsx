@@ -30,8 +30,9 @@ export default function App() {
         watch,
         getValues,
         setValue
-    } = form
-    const {errors} = formState;
+    } = form;
+
+    const {errors, isDirty, touchedFields, dirtyFields} = formState;
 
     const {fields, append, remove} = useFieldArray({
         name: 'companies',
@@ -61,7 +62,7 @@ export default function App() {
             shouldTouch: true
         })
     }
-
+    console.log("Touched Field & Dirty fields - ", isDirty, touchedFields, dirtyFields)
     // useEffect(() => {
     //     setValue("username", 'changed username')
     // }, []);
