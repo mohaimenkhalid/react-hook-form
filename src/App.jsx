@@ -17,7 +17,8 @@ export default function App() {
                 {
                     name: ''
                 }
-            ]
+            ],
+            age: ''
         }
     })
     const {register, control, handleSubmit, formState} = form
@@ -135,8 +136,27 @@ export default function App() {
 
                             <small className="error">{errors?.companies && errors?.companies[index]?.name.message}</small>
                         </div>
+
+
                     ))
                 }
+
+                <div>
+                    <label>Age: </label>
+                    <input
+                        type='number'
+                        placeholder="Enter Age"
+                        {...register('age', {
+                            valueAsNumber: true,
+                            required: {
+                                value: true,
+                                message: 'Age is required'
+                            }
+                        })}
+                    />
+                    <small className="error">{errors?.age?.message}</small>
+
+                </div>
 
                 <button type="submit">Submit</button>
             </form>
