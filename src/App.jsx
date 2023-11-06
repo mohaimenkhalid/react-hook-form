@@ -22,7 +22,15 @@ export default function App() {
             age: ''
         }
     })
-    const {register, control, handleSubmit, formState, watch, getValues} = form
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState,
+        watch,
+        getValues,
+        setValue
+    } = form
     const {errors} = formState;
 
     const {fields, append, remove} = useFieldArray({
@@ -32,7 +40,7 @@ export default function App() {
 
     useEffect(() => {
         const subscription = watch((value) => {
-            console.log(value)
+            console.log("Watched Form Data change - ", value)
         })
         return () => subscription.unsubscribe()
     }, [watch]);
@@ -45,6 +53,18 @@ export default function App() {
         console.log("Get UserName Form Data - ", getValues("username"))
         console.log("Get UserName, Email Form Data - ", getValues(["username", "email"]))
     }
+
+    const handleSetValue = () => {
+        setValue("username", '', {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true
+        })
+    }
+
+    // useEffect(() => {
+    //     setValue("username", 'changed username')
+    // }, []);
     return (
         <div className='App'>
             <h1>R Hook Form Example</h1>
@@ -142,10 +162,10 @@ export default function App() {
                                 })}
                             />
                             {
-                                index === 0 && <button onClick={() => append({name: ''})}>+</button>
+                                index === 0 && <button type="button" onClick={() => append({name: ''})}>+</button>
                             }
                             {
-                                index !== 0 && <button onClick={() => remove(index)}>-</button>
+                                index !== 0 && <button type="button" onClick={() => remove(index)}>-</button>
                             }
 
                             <small className="error">{errors?.companies && errors?.companies[index]?.name.message}</small>
@@ -173,7 +193,9 @@ export default function App() {
                 </div>
 
                 <button type="submit">Submit</button>
-                <button type="submit" onClick={handleGetValues}>Get Values</button>
+                <button type="button" onClick={handleGetValues}>Get Values</button>
+                <button type="button" onClick={handleSetValue}>Set Values</button>
+
             </form>
 
             <DevTool control={control}/>
