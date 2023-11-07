@@ -29,7 +29,9 @@ export default function App() {
         formState,
         watch,
         getValues,
-        setValue
+        setValue,
+        reset,
+        resetField
     } = form;
 
     const {errors, isDirty, touchedFields, dirtyFields, isValid} = formState;
@@ -205,6 +207,8 @@ export default function App() {
                     type="submit">Submit</button>
                 <button type="button" onClick={handleGetValues}>Get Values</button>
                 <button type="button" onClick={handleSetValue}>Set Values</button>
+                <button type="button" onClick={() => reset()}>Reset Form</button>
+                <button type="button" onClick={() => resetField("social.facebook")}>Reset Facebook Only</button>
 
             </form>
 
