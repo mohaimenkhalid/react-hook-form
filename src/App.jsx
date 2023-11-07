@@ -20,7 +20,8 @@ export default function App() {
                 }
             ],
             age: ''
-        }
+        },
+        mode: 'onTouched'
     })
     const {
         register,
