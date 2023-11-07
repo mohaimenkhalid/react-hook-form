@@ -66,10 +66,16 @@ export default function App() {
     // useEffect(() => {
     //     setValue("username", 'changed username')
     // }, []);
+
+
+
+    const onError = (error) => {
+        console.log("submission error", error)
+    }
     return (
         <div className='App'>
             <h1>R Hook Form Example</h1>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
                 <div>
                     <label>UserName: </label>
                     <input
