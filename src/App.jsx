@@ -32,7 +32,7 @@ export default function App() {
         setValue
     } = form;
 
-    const {errors, isDirty, touchedFields, dirtyFields} = formState;
+    const {errors, isDirty, touchedFields, dirtyFields, isValid} = formState;
 
     const {fields, append, remove} = useFieldArray({
         name: 'companies',
@@ -200,7 +200,9 @@ export default function App() {
 
                 </div>
 
-                <button type="submit">Submit</button>
+                <button
+                    disabled={!isValid}
+                    type="submit">Submit</button>
                 <button type="button" onClick={handleGetValues}>Get Values</button>
                 <button type="button" onClick={handleSetValue}>Set Values</button>
 
